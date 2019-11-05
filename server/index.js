@@ -6,10 +6,12 @@ const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
-const sessionStore = new SequelizeStore({db})
+const sessionStore = new SequelizeStore({ db })
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const { syncDb } = require('../seed')
+const { red } = require('chalk')
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -46,7 +48,7 @@ const createApp = () => {
 
   // body parsing middleware
   app.use(express.json())
-  app.use(express.urlencoded({extended: true}))
+  app.use(express.urlencoded({ extended: true }))
 
   // compression middleware
   app.use(compression())
@@ -105,11 +107,16 @@ const startListening = () => {
   require('./socket')(io)
 }
 
-const syncDb = () => db.sync()
+
 
 async function bootApp() {
   await sessionStore.sync()
   await syncDb()
+    .catch(err => {
+      console.error(red('Oh noes! Something went wrong!'))
+      console.error(err)
+      db.close()
+    })
   await createApp()
   await startListening()
 }

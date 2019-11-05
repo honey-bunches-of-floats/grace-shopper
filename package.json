@@ -1,7 +1,7 @@
 {
   "name": "nyse",
   "version": "2.0.0",
-  "description": "grace_shopper app",
+  "description": "grace_shoppper app",
   "engines": {
     "node": ">= 7.0.0"
   },
