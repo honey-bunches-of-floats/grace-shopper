@@ -1,13 +1,13 @@
 const db = require('../db')
 const User = require('./user')
 const Products = require('./products')
-const Cart = require('./cart')
-const Orders = require('./orders')
+// const Cart = require('./cart')
+// const Orders = require('./orders')
 
 Cart.belongsTo(User)
 User.hasOne(Cart)
-User.hasMany(Orders)
-Orders.belongsTo(User)
+// User.hasMany(Orders)
+// Orders.belongsTo(User)
 
 
 
@@ -26,5 +26,5 @@ Orders.belongsTo(User)
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  db, User, Products, Cart, Orders
+  db, User, Products
 }
