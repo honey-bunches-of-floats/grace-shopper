@@ -13,4 +13,6 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
-export * from './products'
+export * from './products' //need to figure out what this is doing
+
+//products not being put on redux store in get next state
