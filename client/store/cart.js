@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+//Refactoring the cart to live on redux store
 //ACTION TYPES
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const UPDATE_CART = 'UPDATE_CART'
@@ -11,9 +11,9 @@ const getCartItems = items => ({
   items
 })
 
-const updateCart = cart => ({
+const updateCart = item => ({
   type: UPDATE_CART,
-  cart
+  item
 })
 
 //delete specific item
@@ -23,50 +23,48 @@ const deleteItem = productId => ({
 })
 
 //INITIAL STATE
-const initialState = {
-  cart: []
-}
+const initialState = [] //we're just talking about one piece of the state
 
 //THUNKS
 
-export const fetchCart = () => async dispatch => {
-  try {
-    const res = await axios.get('/api/cart')
-    dispatch(getCartItems(res.data))
-  } catch (error) {
-    console.log(error)
-  }
-}
+// export const fetchCart = () => async dispatch => {
+//   try {
+//     const res = await axios.get('/api/cart')
+//     dispatch(getCartItems(res.data))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
-export const addItemToCart = cartItem => async dispatch => {
-  try {
-    const {data} = await axios.post(`/api/orders`, cartItem)
-    dispatch(updateCart(data))
-  } catch (error) {
-    console.log(error)
-  }
-}
+// export const addItemToCart = cartItem => async dispatch => {
+//   try {
+//     const {data} = await axios.post(`/api/me`, cartItem)
+//     dispatch(updateCart(data))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
-export const updateQuantity = (productId, quantity) => async dispatch => {
-  try {
-    const response = await axios.put(`/api/orders/cart/${productId}`, {
-      quantity: quantity
-    })
-    const updatedCart = response.data
-    dispatch(updateCart(updatedCart))
-  } catch (error) {
-    console.log(error)
-  }
-}
+// export const updateQuantity = (productId, quantity) => async dispatch => {
+//   try {
+//     const response = await axios.put(`/api/me/cart/${productId}`, {
+//       quantity: quantity
+//     })
+//     const updatedCart = response.data
+//     dispatch(updateCart(updatedCart))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
-export const removeFromCart = productId => async dispatch => {
-  try {
-    await axios.delete(`/api/orders/cart/${productId}`)
-    dispatch(deleteItem(productId))
-  } catch (error) {
-    console.log(error)
-  }
-}
+// export const removeFromCart = productId => async dispatch => {
+//   try {
+//     await axios.delete(`/api/me/cart/${productId}`)
+//     dispatch(deleteItem(productId))
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 //Reducer
 export default function(state = initialState, action) {
@@ -78,7 +76,7 @@ export default function(state = initialState, action) {
       }
     }
     case UPDATE_CART: {
-      return {...state, cart: action.cart}
+      return {...state, cart: action.item}
     }
     case DELETE_FROM_CART: {
       return {

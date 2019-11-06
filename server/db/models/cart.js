@@ -1,4 +1,5 @@
 // const Sequelize = require('sequelize')
+//Refactoring the cart to live on redux store
 const db = require('../db')
 
 const Cart = db.define('cart', {})
