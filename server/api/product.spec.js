@@ -1,14 +1,14 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
-const Product = require('./product')
+const db = require('../db')
+const Products = require('./products')
 
 describe('Product model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
-}) // end describe('User model')
+})
 
 // describe(Routes, () => {
 // let testTable
