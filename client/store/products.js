@@ -36,9 +36,7 @@ export const fetchAProduct = productId => async dispatch => {
 
 //initial state
 
-const initialState = {
-  products: []
-}
+const initialState = []
 
 //reducer
 
