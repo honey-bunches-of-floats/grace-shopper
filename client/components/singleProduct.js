@@ -1,11 +1,67 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {fetchAProduct} from '../store/products'
+import Select from 'react-select'
 
-const SingleProduct = props => {
-  return (
-    <div>
-      <p>Hello</p>
-    </div>
-  )
+const options = [
+  {value: '1', label: '1'},
+  {value: '2', label: '2'},
+  {value: '3', label: '3'},
+  {value: '4', label: '4'},
+  {value: '5', label: '5'},
+  {value: '6', label: '6'},
+  {value: '7', label: '7'},
+  {value: '8', label: '8'},
+  {value: '9', label: '9'},
+  {value: '10', label: '10'}
+]
+
+class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      selectedOption: null
+    }
+    this.handleChange = selectedOption => {
+      this.setState({selectedOption})
+    }
+  }
+
+  componentDidMount() {
+    const itemId = this.props.match.params.itemId
+    console.log('props', this.props)
+    this.props.fetchAProduct(itemId)
+  }
+
+  render() {
+    const {selectedOption} = this.state
+    const item = this.props.item
+    return (
+      <div className="singleProduct">
+        <img className="singleProductImage" src={item.imageUrl} />
+        <h1>{item.name}</h1>
+        <p>{item.description}</p>
+        <h2>{item.price}</h2>
+        <Select
+          className="select"
+          value={selectedOption}
+          onChange={this.handleChange}
+          options={options}
+        />
+        <button type="button" className="button">
+          Add To Cart
+        </button>
+      </div>
+    )
+  }
 }
 
-export default SingleProduct
+const mapStateToProps = state => {
+  return {item: state.products.selectedItem}
+}
+
+const mapDispatchToProps = dispatch => ({
+  fetchAProduct: itemId => dispatch(fetchAProduct(itemId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
