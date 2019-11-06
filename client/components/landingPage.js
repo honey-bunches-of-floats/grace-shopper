@@ -2,10 +2,10 @@ import React from 'react'
 
 const Landing = () => {
   return (
-    <div>
-      <main>
-        <h1>Welcome to the New York Sock Exchange</h1>
-      </main>
+    <div className="jumbotron jumbotron-fluid">
+      <div className="container">
+        <h1 className="display-4">Welcome to the New York Sock Exchange</h1>
+      </div>
     </div>
   )
 }
