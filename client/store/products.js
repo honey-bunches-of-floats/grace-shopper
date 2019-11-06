@@ -2,7 +2,7 @@ import axios from 'axios'
 
 //action types
 const GET_PRODUCTS = 'GET_PRODUCTS'
-const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
+// const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 
 //action creators
 const getProducts = products => ({
@@ -10,10 +10,10 @@ const getProducts = products => ({
   products
 })
 
-const getSingleProduct = product => ({
-  type: GET_SINGLE_PRODUCT,
-  product
-})
+// const getSingleProduct = product => ({
+//   type: GET_SINGLE_PRODUCT,
+//   product
+// })
 
 //thunks
 export const fetchProducts = () => async dispatch => {
@@ -25,14 +25,14 @@ export const fetchProducts = () => async dispatch => {
   }
 }
 
-export const fetchAProduct = productId => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/products/${productId}`)
-    dispatch(getSingleProduct(data))
-  } catch (error) {
-    console.error(error)
-  }
-}
+// export const fetchAProduct = productId => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/products/${productId}`)
+//     dispatch(getSingleProduct(data))
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 //initial state
 
@@ -44,8 +44,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
-    case GET_SINGLE_PRODUCT:
-      return action.product
+    // case GET_SINGLE_PRODUCT:
+    //   return action.product
     default:
       return state
   }
