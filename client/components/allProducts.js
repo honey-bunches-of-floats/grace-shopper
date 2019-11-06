@@ -28,7 +28,7 @@ class AllProducts extends React.Component {
 const mapStateToProps = state => {
   console.log('from mapStateToProps:', state)
   return {
-    products: state.products
+    products: state.products.allProducts
   }
 }
 
