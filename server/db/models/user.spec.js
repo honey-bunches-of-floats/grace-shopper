@@ -29,4 +29,15 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+
+  describe('column definitions and validations', () => {
+    it('has an `email`', async () => {
+      const Fido = await User.create({
+        email: 'fido@email.com',
+        password: '123'
+      })
+
+      expect(Fido.email).to.equal('fido@email.com')
+    })
+  })
 }) // end describe('User model')
