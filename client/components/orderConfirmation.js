@@ -1,6 +1,5 @@
 import React from 'react'
 
-//will have to pass the order info as 'order' and user info as 'user'
 export const OrderConfirmation = props => {
   return (
     <div>
