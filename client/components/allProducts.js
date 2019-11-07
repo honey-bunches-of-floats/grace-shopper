@@ -17,10 +17,10 @@ class AllProducts extends React.Component {
               <img className="productImage" src={product.imageUrl} />
               <h3> {product.name}</h3>
               <p>${product.price}</p>
-              <button type="button" className="button">
-                Add To Cart
-              </button>
             </Link>
+            <button type="button" className="button">
+              Add To Cart
+            </button>
           </div>
         ))}
       </div>
