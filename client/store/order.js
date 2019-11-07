@@ -60,8 +60,6 @@ export default function(state = initialState, action) {
     case GET_ALL_ORDERS:
       return {...state, list: action.orders}
     case CREATE_ORDER:
-      // const newOrderState = state
-      // newOrderState.payload.push(action.order)
       return {...state, newOrder: action.order}
     default:
       return state
