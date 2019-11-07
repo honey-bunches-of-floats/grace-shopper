@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAProduct} from '../store/products'
 import Select from 'react-select'
-import {addToCart} from '../store/cart'
+import {addingToCart} from '../store/cart'
 const options = [
   {value: '1', label: '1'},
   {value: '2', label: '2'},
@@ -31,7 +31,7 @@ class SingleProduct extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     console.log('Button working!')
-    this.props.addToCart(this.props.item)
+    this.props.addToCart(this.props.item.id)
   }
 
   componentDidMount() {
@@ -68,7 +68,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchAProduct: itemId => dispatch(fetchAProduct(itemId)),
-  addToCart: item => dispatch(addToCart(item))
+  addToCart: item => dispatch(addingToCart(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
