@@ -34,11 +34,12 @@ router.put('/', async (req, res, next) => {
         }
       })
       const currentInstance = addedItem[0]
-      console.log('req.body', req.body)
+      // console.log('req.body', req.body)
       console.log('added item:', addedItem[1])
-      console.log('currentInstance:', currentInstance)
+      // console.log('currentInstance:', currentInstance)
       currentInstance.products.push(req.body.item)
       const savedInstance = await currentInstance.save()
+      console.log('savedInstance:', savedInstance)
       res.send(savedInstance).status(200)
     } else {
       const addedItem = await Order.findOrCreate({

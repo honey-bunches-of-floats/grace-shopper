@@ -60,13 +60,13 @@ const initialState = []
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_CART_ITEMS: {
+    case GET_CART_ITEMS:
       return action.cart
-    }
-    case ADD_TO_CART: {
+
+    case ADD_TO_CART:
       return [...state, action.item]
-    }
-    // case DELETE_FROM_CART: {
+
+    // case DELETE_FROM_CART:
     //   return {
     //     ...state,
     //     cart: state.cart.filter(input => input.productId !== action.productId)
