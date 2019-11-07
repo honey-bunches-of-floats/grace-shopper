@@ -11,12 +11,14 @@ const getOrders = orders => ({
 })
 
 const createOrder = order => ({
-  type: CREATE_ORDER
+  type: CREATE_ORDER,
+  order
 })
 
 //INITIAL STATE
 const initialState = {
-  payload: []
+  list: [],
+  newOrder: {}
 }
 
 //THUNKS
@@ -58,9 +60,9 @@ export default function(state = initialState, action) {
     case GET_ALL_ORDERS:
       return {...state, list: action.orders}
     case CREATE_ORDER:
-      const newOrderState = state
-      newOrderState.payload.push(action.order)
-      return newOrderState
+      // const newOrderState = state
+      // newOrderState.payload.push(action.order)
+      return {...state, newOrder: action.order}
     default:
       return state
   }
