@@ -30,7 +30,7 @@ class AllProducts extends React.Component {
             </Link>
             <button
               onClick={this.handleSubmit}
-              value={product}
+              value={product.id}
               type="button"
               className="button"
             >
