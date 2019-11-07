@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import fetchCart from '../store/cart'
+import {deleteFromCart} from '../store/cart'
 import Select from 'react-select'
 
 const options = [
@@ -22,6 +22,10 @@ class Cart extends React.Component {
     this.state = {
       selectedOption: null
     }
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(evt) {
+    deleteFromCart(evt.target.id)
   }
   render() {
     const {selectedOption} = this.state
@@ -42,6 +46,11 @@ class Cart extends React.Component {
               />
               <button type="button">UPDATE</button>
             </h3>
+            <h3>
+              <button type="button" onClick={this.handleClick}>
+                DELETE FROM CART
+              </button>
+            </h3>
           </div>
         ))}
       </div>
@@ -50,11 +59,12 @@ class Cart extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchCart: () => dispatch(fetchCart)
+  deletefromCart: itemId => dispatch(deleteFromCart(itemId))
 })
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  user: state.user
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
