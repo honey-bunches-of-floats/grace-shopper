@@ -23,9 +23,7 @@ const deleteItemFromCart = productId => ({
 })
 
 //INITIAL STATE
-const initialState = {
-  cart: []
-}
+const initialState = []
 
 //THUNKS
 export const fetchCart = () => async dispatch => {
@@ -63,10 +61,7 @@ export const deleteFromCart = productId => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS: {
-      return {
-        ...state,
-        cart: action.items
-      }
+      return action.items
     }
     case UPDATE_CART: {
       return {...state, cart: action.cart}
