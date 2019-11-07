@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchAProduct} from '../store/products'
 import Select from 'react-select'
-
+import {addToCart} from '../store/cart'
 const options = [
   {value: '1', label: '1'},
   {value: '2', label: '2'},
@@ -19,22 +19,28 @@ const options = [
 class SingleProduct extends React.Component {
   constructor() {
     super()
-    this.state = {
-      selectedOption: null
-    }
-    this.handleChange = selectedOption => {
-      this.setState({selectedOption})
-    }
+    // this.state = {
+    //   selectedOption: null
+    // }
+    // this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  // handleChange = selectedOption => {
+  //   this.setState({ selectedOption })
+  // }
+  handleSubmit = event => {
+    event.preventDefault()
+    console.log('Button working!')
+    this.props.addToCart(this.props.item)
   }
 
   componentDidMount() {
     const itemId = this.props.match.params.itemId
-    console.log('props', this.props)
     this.props.fetchAProduct(itemId)
   }
 
   render() {
-    const {selectedOption} = this.state
+    // const { selectedOption } = this.state
     const item = this.props.item
     return (
       <div className="singleProduct">
@@ -42,13 +48,13 @@ class SingleProduct extends React.Component {
         <h1>{item.name}</h1>
         <p>{item.description}</p>
         <h2>{item.price}</h2>
-        <Select
+        {/* <Select
           className="select"
           value={selectedOption}
           onChange={this.handleChange}
           options={options}
-        />
-        <button type="button" className="button">
+        /> */}
+        <button onClick={this.handleSubmit} type="button" className="button">
           Add To Cart
         </button>
       </div>
@@ -61,7 +67,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchAProduct: itemId => dispatch(fetchAProduct(itemId))
+  fetchAProduct: itemId => dispatch(fetchAProduct(itemId)),
+  addToCart: item => dispatch(addToCart(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

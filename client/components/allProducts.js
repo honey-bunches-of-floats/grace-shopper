@@ -2,10 +2,20 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
 import {Link} from 'react-router-dom'
+import {addToCart} from '../store/cart'
+
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.fetchProductsThunk()
   }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    console.log('Button working!')
+    console.log('item', event.target.value)
+    this.props.addToCart(event.target.value)
+  }
+
   render() {
     console.log('props from allProducts component:', this.props.products) //state isn't being mapped to props
     return (
@@ -18,7 +28,12 @@ class AllProducts extends React.Component {
               <h3> {product.name}</h3>
               <p>${product.price}</p>
             </Link>
-            <button type="button" className="button">
+            <button
+              onClick={this.handleSubmit}
+              value={product}
+              type="button"
+              className="button"
+            >
               Add To Cart
             </button>
           </div>
@@ -35,10 +50,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchProductsThunk: () => dispatch(fetchProducts())
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchProductsThunk: () => dispatch(fetchProducts()),
+  addToCart: item => dispatch(addToCart(item))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)

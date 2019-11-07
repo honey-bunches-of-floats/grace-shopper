@@ -28,7 +28,7 @@ const initialState = []
 //THUNKS
 export const fetchCart = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/cart')
+    const {data} = await axios.get('/api/order')
     dispatch(getItems(data))
   } catch (error) {
     console.log(error)
@@ -37,7 +37,7 @@ export const fetchCart = () => async dispatch => {
 
 export const addToCart = cartItem => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/orders`, cartItem)
+    const {data} = await axios.post(`/api/order`, cartItem)
     dispatch(updateCart(data))
   } catch (error) {
     console.log(error)
@@ -50,7 +50,7 @@ export const addToCart = cartItem => async dispatch => {
 
 export const deleteFromCart = productId => async dispatch => {
   try {
-    await axios.delete(`/api/orders/cart/${productId}`)
+    await axios.delete(`/api/order/cart/${productId}`)
     dispatch(deleteItemFromCart(productId))
   } catch (error) {
     console.log(error)
@@ -64,13 +64,10 @@ export default function(state = initialState, action) {
       return action.items
     }
     case UPDATE_CART: {
-      return {...state, cart: action.cart}
+      return action.cart
     }
     case DELETE_FROM_CART: {
-      return {
-        ...state,
-        cart: state.cart.filter(input => input.productId !== action.productId)
-      }
+      return state.filter(input => input.productId !== action.productId)
     }
     default:
       return state

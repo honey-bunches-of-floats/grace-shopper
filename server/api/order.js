@@ -5,13 +5,14 @@ const {Order} = require('../db/models/orders')
 module.exports = router
 
 //user route to their cart
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     console.log('req.user: ', req.user)
-    const userCart = await Order.findByPk({
+    const userCart = await Order.findOne({
       //should calling to order table
       where: {
-        userId: req.params.id
+        userId: req.params.id,
+        processed: false
       }
     })
     res.send(userCart)
@@ -22,6 +23,7 @@ router.get('/', async (req, res, next) => {
 
 //user add to their cart
 router.put('/', async (req, res, next) => {
+  console.log('from inside of api/order router.put')
   try {
     if (req.user.id) {
       console.log('req.user.id: ', req.user.id)
