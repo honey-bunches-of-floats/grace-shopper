@@ -7,7 +7,8 @@ const Order = db.define('orders', {
     processed: false
   },
   products: {
-    type: Sequelize.ARRAY(Sequelize.TEXT)
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: []
   }
 })
 

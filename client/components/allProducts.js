@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
 import {Link} from 'react-router-dom'
-import {addToCart} from '../store/cart'
+import {addingToCart} from '../store/cart'
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -52,7 +52,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchProductsThunk: () => dispatch(fetchProducts()),
-  addToCart: item => dispatch(addToCart(item))
+  addToCart: item => dispatch(addingToCart(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)

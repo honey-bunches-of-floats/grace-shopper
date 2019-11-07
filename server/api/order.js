@@ -1,18 +1,19 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 const {Product} = require('../db/models')
-const {Order} = require('../db/models/orders')
+const Order = require('../db/models/orders')
 module.exports = router
 
 //user route to their cart
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
+  console.log('got to the order GET')
   try {
     console.log('req.user: ', req.user)
+    // console.log('req.user.id: ', req.user.id)
     const userCart = await Order.findOne({
       //should calling to order table
       where: {
-        userId: req.params.id,
-        processed: false
+        userId: req.user.id
       }
     })
     res.send(userCart)
@@ -33,6 +34,9 @@ router.put('/', async (req, res, next) => {
         }
       })
       const currentInstance = addedItem[0]
+      console.log('req.body', req.body)
+      console.log('added item:', addedItem[1])
+      console.log('currentInstance:', currentInstance)
       currentInstance.products.push(req.body.item)
       const savedInstance = await currentInstance.save()
       res.send(savedInstance).status(200)
