@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const ProcessedOrder = db.define('processedOrders', {
-  quantity: {
+const OrderDetails = db.define('orderDetails', {
+  itemQuantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1
   },
@@ -20,4 +20,4 @@ const ProcessedOrder = db.define('processedOrders', {
 
 //missing productId
 
-module.exports = ProcessedOrder
+module.exports = OrderDetails
