@@ -7,7 +7,7 @@ const Order = db.define('orders', {
     processed: false
   },
   products: {
-    type: Sequelize.ARRAY
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   }
 })
 
