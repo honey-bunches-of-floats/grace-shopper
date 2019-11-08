@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 const {Product} = require('../db/models')
 const Order = require('../db/models/orders')
+const Sequelize = require('sequelize')
+
 module.exports = router
 
 //user route to their cart
@@ -35,12 +37,16 @@ router.put('/', async (req, res, next) => {
       })
       const currentInstance = addedItem[0]
       // console.log('req.body', req.body)
-      console.log('added item:', addedItem[1])
-      // console.log('currentInstance:', currentInstance)
-      currentInstance.products.push(req.body.item)
-      const savedInstance = await currentInstance.save()
-      console.log('savedInstance:', savedInstance)
-      res.send(savedInstance).status(200)
+      // console.log('added item:', addedItem[1])
+      const updatedInstance = await currentInstance.update({
+        products: Sequelize.fn(
+          'array_append',
+          Sequelize.col('products'),
+          req.body.item
+        )
+      })
+
+      res.send(updatedInstance).status(200)
     } else {
       const addedItem = await Order.findOrCreate({
         where: {
