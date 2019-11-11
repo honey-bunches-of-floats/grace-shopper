@@ -44,6 +44,7 @@ router.put('/', async (req, res, next) => {
       req.session.guestCart = [] //write cart directly onto guest session object
     }
     req.session.guestCart.push(req.body.item)
+    console.log('req.session from put cart:', req.session.guestCart)
     res.send(req.session.guestCart)
   } catch (error) {
     next(error)
