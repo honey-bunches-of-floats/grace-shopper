@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
 const ADD_TO_CART = 'ADD_TO_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
+const CLEAR_CART = 'CLEAR_CART'
 //updating cart item quantity const UPDATE_CART = 'UPDATE_CART
 
 //ACTION CREATORS
@@ -15,6 +16,10 @@ const getCart = cart => ({
 const addToCart = item => ({
   type: ADD_TO_CART,
   item
+})
+
+const clearCart = () => ({
+  type: CLEAR_CART
 })
 
 //delete specific item from the cart
@@ -56,15 +61,20 @@ export const addingToCart = item => async dispatch => {
 //REDUCER
 
 //INITIAL STATE
-const initialState = []
+const initialState = {
+  cart: [],
+  checkout: []
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return action.cart
+      return {...state, cart: action.cart}
 
     case ADD_TO_CART:
-      return [...state, action.item]
+      return {...state, cart: [...state.cart, action.item]}
+    case CLEAR_CART:
+      return {...state, checkout: state.cart, cart: []}
 
     // case DELETE_FROM_CART:
     //   return {
