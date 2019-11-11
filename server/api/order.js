@@ -37,20 +37,17 @@ router.put('/', async (req, res, next) => {
       const updatedInstance = await currentInstance.update({
         products: currentInstance.products
       })
-      res.send(updatedInstance).status(200)
+      res.send(updatedInstance.products).status(200)
+    } else {
+      if (!req.session.guestCart) {
+        req.session.guestCart = [] //write cart directly onto guest session object
+      }
+      req.session.guestCart.push(req.body.item)
+      console.log('req.session from put cart:', req.session.guestCart)
+      res.send(req.session.guestCart)
     }
-
-
-    if (!req.session.guestCart) {
-      req.session.guestCart = [] //write cart directly onto guest session object
-    }
-    req.session.guestCart.push(req.body.item)
-    console.log('req.session from put cart:', req.session.guestCart)
-    res.send(req.session.guestCart)
-
 
     //write cart directly onto guess session object
-
   } catch (error) {
     next(error)
   }

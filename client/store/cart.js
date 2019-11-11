@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
       return {...state, cart: action.cart}
 
     case ADD_TO_CART:
-      return {...state, cart: [...state.cart, action.item]}
+      return {...state, cart: action.item}
     case CLEAR_CART:
       return {...state, checkout: state.cart, cart: []}
 

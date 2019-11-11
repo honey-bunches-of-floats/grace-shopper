@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Cart from './components/cart'
 import {
   Login,
   Signup,
@@ -9,8 +10,7 @@ import {
   AllProducts,
   SingleProduct,
   Landing,
-  Checkout,
-  Cart
+  Checkout
 } from './components'
 import {me} from './store'
 
