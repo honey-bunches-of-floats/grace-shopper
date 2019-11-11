@@ -41,7 +41,19 @@ router.put('/', async (req, res, next) => {
     }
 
     console.log('req.session:', req.session)
-    req.session.guestCart = [] //write cart directly onto guess session object
+    let addedItem = await Order.Create({
+      where: {
+        userId: req.session.id
+      }
+    })
+    let currentInstance = addedItem[0]
+    currentInstance.products.push(req.body.item)
+    const updatedInstance = await currentInstance.update({
+      products: currentInstance.products
+    })
+    res.send(updatedInstance).status(200)
+
+    //write cart directly onto guess session object
   } catch (error) {
     next(error)
   }

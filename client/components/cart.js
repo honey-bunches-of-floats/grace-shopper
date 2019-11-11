@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {deleteFromCart} from '../store/cart'
+import {deleteFromCart, fetchCart, clearCart} from '../store/cart'
 import Select from 'react-select'
 
 const options = [
@@ -19,14 +19,23 @@ const options = [
 class Cart extends React.Component {
   constructor() {
     super()
+    this.handleClick = this.handleClick.bind(this)
     this.state = {
       selectedOption: null
     }
-    this.handleClick = this.handleClick.bind(this)
+  }
+  componentDidMount() {
+    this.props.fetchCart()
   }
   handleClick(evt) {
     deleteFromCart(evt.target.id)
   }
+
+  handleCheckout() {
+    this.props.clearCart()
+    this.props.history.push('/checkout')
+  }
+
   render() {
     const {selectedOption} = this.state
     return (
@@ -51,6 +60,9 @@ class Cart extends React.Component {
                 DELETE FROM CART
               </button>
             </h3>
+            <button type="button" onClick={this.handleCheckout}>
+              Submit order
+            </button>
           </div>
         ))}
       </div>
@@ -59,7 +71,9 @@ class Cart extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  deletefromCart: itemId => dispatch(deleteFromCart(itemId))
+  deletefromCart: itemId => dispatch(deleteFromCart(itemId)),
+  fetchCart: () => dispatch(fetchCart()),
+  clearCart: () => dispatch(clearCart())
 })
 
 const mapStateToProps = state => ({
