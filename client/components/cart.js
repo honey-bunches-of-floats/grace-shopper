@@ -1,51 +1,39 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, deleteFromCart} from '../store/cart'
-import {fetchProducts} from '../store/products'
 import {newOrderCreated} from '../store/order'
-
 class Cart extends React.Component {
   constructor() {
     super()
-
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   //get current cart
   componentDidMount() {
     this.props.fetchCart()
-    this.props.fetchProducts()
   }
-
   //delete lineItem...not the product
   handleClick(itemId) {
     this.props.deleteFromCart(itemId)
   }
-
   //show order total
   handleSubmit(orderTotal) {
     this.props.newOrderCreated(orderTotal)
     this.props.history.push('/checkout')
   }
-
   handleReset = () => {
     const clearedQty = this.props.items.map(item => {
       item.quantity = 0
       return clearedQty
     })
   }
-
   render() {
-    console.log('products:', this.props.products)
-    // const cart = this.props.products.filter(item => {
-    //   return this.props.cart.cart.includes(item.id)
-    // })
-    console.log('cart from cart component', this.props.cart)
+    const cart = this.props.cart
     let total = 0
     return (
       <div>
         <h1>MY CART</h1>
-        {/* {cart.map(item => {
+        {cart.map(item => {
           total += item.price * item.quantity
           console.log('product from map', item)
           return (
@@ -62,7 +50,7 @@ class Cart extends React.Component {
               </button>
             </div>
           )
-        })} */}
+        })}
         <div className="subtotal">
           <div>SUBTOTAL: ${total}</div>
           <button
@@ -82,12 +70,10 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart.cart,
-  products: state.products.allProducts
+  cart: state.cart.cart
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchProducts: () => dispatch(fetchProducts()),
   fetchCart: () => dispatch(fetchCart()),
   deleteFromCart: itemId => dispatch(deleteFromCart(itemId)),
   newOrderCreated: total => dispatch(newOrderCreated(total))

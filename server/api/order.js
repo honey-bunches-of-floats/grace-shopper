@@ -19,7 +19,8 @@ router.get('/', async (req, res, next) => {
       where: {
         orderId: userCart.id,
         userId: req.user.id
-      }
+      },
+      include: [{model: Products}]
     })
     console.log('cart details from GET cart:', cartDetails)
     res.send(cartDetails)
@@ -46,6 +47,10 @@ router.put('/', async (req, res, next) => {
           productId: req.body.itemId
         }
       })
+      if (!addedItem[1]) {
+        addedItem[0].itemQuantity++
+        await addedItem[0].save()
+      }
 
       res.send(addedItem[0]).status(200)
     } else {
