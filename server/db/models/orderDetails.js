@@ -7,14 +7,10 @@ const OrderDetails = db.define('orderDetails', {
     defaultValue: 1
   },
   customerBillingAddress: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    isEmpty: false
+    type: Sequelize.STRING
   },
   customerShippingAddress: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    isEmpty: false
+    type: Sequelize.STRING
   }
 })
 
