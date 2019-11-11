@@ -5,7 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     console.log('req.user:', req.user)
-    console.log('req.session:', req.sessionID)
+    console.log('req.session:', req.session)
     const allProducts = await Products.findAll()
     res.json(allProducts)
   } catch (err) {

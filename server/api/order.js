@@ -26,7 +26,7 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   console.log('from inside of api/order router.put')
   try {
-    if (req.user !== 'undefined') {
+    if (req.user !== undefined) {
       const addedItem = await Order.findOrCreate({
         where: {
           userId: req.user.id
@@ -40,8 +40,11 @@ router.put('/', async (req, res, next) => {
       res.send(updatedInstance).status(200)
     }
 
-    console.log('req.session:', req.session)
-    req.session.guestCart = [] //write cart directly onto guess session object
+    if (!req.session.guestCart) {
+      req.session.guestCart = [] //write cart directly onto guest session object
+    }
+    req.session.guestCart.push(req.body.item)
+    res.send(req.session.guestCart)
   } catch (error) {
     next(error)
   }
