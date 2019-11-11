@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, deleteFromCart} from '../store/cart'
-// import Select from 'react-select'
+import {fetchCart, deleteFromCart, clearCart} from '../store/cart'
 import {newOrderCreated} from '../store/order'
+
 
 // const options = [
 //   {value: '1', label: '1'},
@@ -17,58 +17,7 @@ import {newOrderCreated} from '../store/order'
 //   {value: '10', label: '10'}
 // ]
 
-// class Cart extends React.Component {
-//   constructor() {
-//     super()
-//     this.state = {
-//       selectedOption: null
-//     }
-//     this.handleClick = this.handleClick.bind(this)
-//   }
-//   handleClick(evt) {
-//     deleteFromCart(evt.target.id)
-//   }
-//   render() {
-//     const {selectedOption} = this.state
-//     return (
-//       <div>
-//         <h1>MY CART</h1>
-//         {this.props.cart.map(item => (
-//           <div key={item.id}>
-//             <img src={item.imageUrl} />
-//             <h3>{item.name}</h3>
-//             <h3>
-//               Quantity: {item.quantity}
-//               <Select
-//                 className="select"
-//                 value={selectedOption}
-//                 onChange={this.handleChange}
-//                 options={options}
-//               />
-//               <button type="button">UPDATE</button>
-//             </h3>
-//             <h3>
-//               <button type="button" onClick={this.handleClick}>
-//                 DELETE FROM CART
-//               </button>
-//             </h3>
-//           </div>
-//         ))}
-//       </div>
-//     )
-//   }
-// }
 
-// const mapDispatchToProps = dispatch => ({
-//   deletefromCart: itemId => dispatch(deleteFromCart(itemId))
-// })
-
-// const mapStateToProps = state => ({
-//   cart: state.cart,
-//   user: state.user
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Cart)
 
 class Cart extends React.Component {
   constructor() {
@@ -85,11 +34,18 @@ class Cart extends React.Component {
   //delete lineItem...not the product
   handleClick(itemId) {
     this.props.deleteFromCart(itemId)
+
   }
 
   //show order total
   handleSubmit(orderTotal) {
     this.props.newOrderCreated(orderTotal)
+  }
+
+
+  handleCheckout() {
+    this.props.clearCart()
+    this.props.history.push('/checkout')
   }
 
   render() {
@@ -112,6 +68,7 @@ class Cart extends React.Component {
               >
                 DELETE FROM CART
               </button>
+
             </div>
           )
         })}
@@ -125,17 +82,19 @@ class Cart extends React.Component {
             Proceed To Checkout
           </button>
         </div>
+
       </div>
     )
   }
 }
 
+
 const mapStateToProps = state => ({
   cart: state.cart
-  // user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
+  clearCart: () => dispatch(clearCart()),
   fetchCart: () => dispatch(fetchCart()),
   deleteFromCart: itemId => dispatch(deleteFromCart(itemId)),
   newOrderCreated: total => dispatch(newOrderCreated(total))
