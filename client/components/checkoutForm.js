@@ -1,5 +1,5 @@
 import React from 'react'
-import {createNewOrder} from '../store'
+import {newOrderCreated} from '../store/order'
 import {connect} from 'react-redux'
 
 class Checkout extends React.Component {
@@ -25,7 +25,7 @@ class Checkout extends React.Component {
   async handleSubmit(event) {
     event.preventDefault()
     try {
-      await this.props.createNewOrder(this.state)
+      await this.props.newOrderCreated(this.state)
       return (
         <orderConfirmation
           order={this.props.newOrder}
@@ -92,12 +92,12 @@ class Checkout extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  orders: state.order.list,
-  newOrder: state.order.newOrder
+  orders: state.order,
+  newOrder: state.newOrder
 })
 
 const mapDispatchToProps = dispatch => ({
-  createNewOrder: order => dispatch(createNewOrder(order))
+  newOrderCreated: order => dispatch(newOrderCreated(order))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
