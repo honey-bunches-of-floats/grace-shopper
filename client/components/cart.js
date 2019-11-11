@@ -4,19 +4,6 @@ import {fetchCart, deleteFromCart} from '../store/cart'
 import {fetchProducts} from '../store/products'
 import {newOrderCreated} from '../store/order'
 
-// const options = [
-//   {value: '1', label: '1'},
-//   {value: '2', label: '2'},
-//   {value: '3', label: '3'},
-//   {value: '4', label: '4'},
-//   {value: '5', label: '5'},
-//   {value: '6', label: '6'},
-//   {value: '7', label: '7'},
-//   {value: '8', label: '8'},
-//   {value: '9', label: '9'},
-//   {value: '10', label: '10'}
-// ]
-
 class Cart extends React.Component {
   constructor() {
     super()
@@ -58,7 +45,7 @@ class Cart extends React.Component {
     return (
       <div>
         <h1>MY CART</h1>
-        {cart.map(item => {
+        {/* {cart.map(item => {
           total += item.price * item.quantity
           console.log('product from map', item)
           return (
@@ -75,7 +62,7 @@ class Cart extends React.Component {
               </button>
             </div>
           )
-        })}
+        })} */}
         <div className="subtotal">
           <div>SUBTOTAL: ${total}</div>
           <button

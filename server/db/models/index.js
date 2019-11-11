@@ -4,13 +4,12 @@ const Products = require('./products')
 const Order = require('./orders')
 const OrderDetails = require('./orderDetails')
 
-//Products.belongsToMany(OrderDetails, { through: 'orders' })
-// OrderDetails.hasMany(Products)
 Products.hasMany(OrderDetails)
-OrderDetails.belongsToMany(User, {through: 'orders'})
+Order.belongsTo(User, {through: 'orderDetails'})
 User.hasMany(OrderDetails)
-
-// Order.hasOne(OrderDetails)
+User.hasMany(Order)
+Order.hasMany(OrderDetails)
+//OrderDetails.belongsTo(Order)
 
 /**
  * If we had any associations to make, this would be a great place to put them!

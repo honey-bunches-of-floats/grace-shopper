@@ -9,7 +9,6 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   console.log('got to the order GET')
   try {
-    console.log('req.user: ', req.user)
     const userCart = await Order.findOne({
       where: {
         userId: req.user.id,
@@ -18,9 +17,9 @@ router.get('/', async (req, res, next) => {
     })
     const cartDetails = await OrderDetails.findOne({
       where: {
-        id: userCart.orderDetailId
-      },
-      include: [{model: Products}]
+        orderId: userCart.id,
+        userId: req.user.id
+      }
     })
     console.log('cart details from GET cart:', cartDetails)
     res.send(cartDetails)
@@ -30,20 +29,31 @@ router.get('/', async (req, res, next) => {
 })
 
 //user add to their cart
-router.post('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     if (req.user !== undefined) {
-      const addedItem = await OrderDetails.create({
-        productId: req.body.itemId,
-        userId: req.user.id
+      const openOrder = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
       })
-      res.send(addedItem).status(200)
+      const foundOpenOrder = openOrder[0]
+      const addedItem = await OrderDetails.findOrCreate({
+        where: {
+          userId: req.user.id,
+          orderId: foundOpenOrder.id,
+          productId: req.body.itemId
+        }
+      })
+
+      res.send(addedItem[0]).status(200)
     } else {
       if (!req.session.guestCart) {
         req.session.guestCart = []
       }
       req.session.guestCart.push(req.body.itemId)
-      console.log('req.session from put cart:', req.session.guestCart)
+
       res.send(req.session.guestCart)
     }
   } catch (error) {
