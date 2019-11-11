@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, deleteFromCart, clearCart} from '../store/cart'
+import {fetchProducts} from '../store/products'
 import {newOrderCreated} from '../store/order'
-
 
 // const options = [
 //   {value: '1', label: '1'},
@@ -17,8 +17,6 @@ import {newOrderCreated} from '../store/order'
 //   {value: '10', label: '10'}
 // ]
 
-
-
 class Cart extends React.Component {
   constructor() {
     super()
@@ -29,12 +27,12 @@ class Cart extends React.Component {
   //get current cart
   componentDidMount() {
     this.props.fetchCart()
+    this.props.fetchProducts()
   }
 
   //delete lineItem...not the product
   handleClick(itemId) {
     this.props.deleteFromCart(itemId)
-
   }
 
   //show order total
@@ -42,20 +40,24 @@ class Cart extends React.Component {
     this.props.newOrderCreated(orderTotal)
   }
 
-
   handleCheckout() {
     this.props.clearCart()
     this.props.history.push('/checkout')
   }
 
   render() {
-    const {cart} = this.props
+    console.log('products:', this.props.products)
+    const cart = this.props.products.filter(item => {
+      return this.props.cart.cart.includes(item.id)
+    })
+    console.log('cart from cart component', this.props.cart)
     let total = 0
     return (
       <div>
         <h1>MY CART</h1>
         {cart.map(item => {
           total += item.price * item.quantity
+          console.log('product from map', item)
           return (
             <div key={item.id} className="select">
               <img src={item.imageUrl} />
@@ -68,7 +70,6 @@ class Cart extends React.Component {
               >
                 DELETE FROM CART
               </button>
-
             </div>
           )
         })}
@@ -82,18 +83,18 @@ class Cart extends React.Component {
             Proceed To Checkout
           </button>
         </div>
-
       </div>
     )
   }
 }
 
-
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  products: state.products.allProducts
 })
 
 const mapDispatchToProps = dispatch => ({
+  fetchProducts: () => dispatch(fetchProducts()),
   clearCart: () => dispatch(clearCart()),
   fetchCart: () => dispatch(fetchCart()),
   deleteFromCart: itemId => dispatch(deleteFromCart(itemId)),
