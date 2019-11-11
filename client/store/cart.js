@@ -39,9 +39,9 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const addingToCart = item => async dispatch => {
+export const addingToCart = itemId => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/order`, {item})
+    const {data} = await axios.post(`/api/order`, {itemId})
     dispatch(addToCart(data))
   } catch (error) {
     console.log(error)
@@ -49,10 +49,10 @@ export const addingToCart = item => async dispatch => {
 }
 
 // waiting for delete from order route to be written
-export const deleteFromCart = productId => async dispatch => {
+export const deleteFromCart = itemId => async dispatch => {
   try {
-    await axios.delete(`/api/order/deleteFromCart/${productId}`)
-    dispatch(deleteItemFromCart(productId))
+    await axios.delete('/api/order', {itemId})
+    dispatch(deleteItemFromCart(itemId))
   } catch (error) {
     console.log(error)
   }
@@ -72,7 +72,7 @@ export default function(state = initialState, action) {
       return {...state, cart: action.cart}
 
     case ADD_TO_CART:
-      return {...state, cart: action.item}
+      return {...state, cart: [...state.cart, action.item]}
     case CLEAR_CART:
       return {...state, checkout: state.cart, cart: []}
 
