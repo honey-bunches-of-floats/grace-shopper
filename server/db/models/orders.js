@@ -5,10 +5,6 @@ const Order = db.define('orders', {
   status: {
     type: Sequelize.STRING,
     processed: false
-  },
-  products: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
-    defaultValue: []
   }
 })
 
