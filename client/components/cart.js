@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, deleteFromCart, clearCart} from '../store/cart'
+import {fetchCart, deleteFromCart} from '../store/cart'
 import {fetchProducts} from '../store/products'
 import {newOrderCreated} from '../store/order'
 
@@ -38,18 +38,21 @@ class Cart extends React.Component {
   //show order total
   handleSubmit(orderTotal) {
     this.props.newOrderCreated(orderTotal)
+    this.props.history.push('/checkout')
   }
 
-  handleCheckout() {
-    this.props.clearCart()
-    this.props.history.push('/checkout')
+  handleReset = () => {
+    const clearedQty = this.props.items.map(item => {
+      item.quantity = 0
+      return clearedQty
+    })
   }
 
   render() {
     console.log('products:', this.props.products)
-    const cart = this.props.products.filter(item => {
-      return this.props.cart.cart.includes(item.id)
-    })
+    // const cart = this.props.products.filter(item => {
+    //   return this.props.cart.cart.includes(item.id)
+    // })
     console.log('cart from cart component', this.props.cart)
     let total = 0
     return (
@@ -77,7 +80,10 @@ class Cart extends React.Component {
           <div>SUBTOTAL: ${total}</div>
           <button
             type="submit"
-            onClick={() => this.handleSubmit(total)}
+            onClick={() => {
+              this.handleSubmit(total)
+              this.handleReset()
+            }}
             id="goToCheckout"
           >
             Proceed To Checkout
@@ -89,13 +95,12 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  cart: state.cart,
+  cart: state.cart.cart,
   products: state.products.allProducts
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts()),
-  clearCart: () => dispatch(clearCart()),
   fetchCart: () => dispatch(fetchCart()),
   deleteFromCart: itemId => dispatch(deleteFromCart(itemId)),
   newOrderCreated: total => dispatch(newOrderCreated(total))
