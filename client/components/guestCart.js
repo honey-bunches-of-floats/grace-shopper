@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, deleteFromCart} from '../store/cart'
-import {newOrderCreated} from '../store/order'
 class GuestCart extends React.Component {
   constructor() {
     super()
@@ -18,20 +17,18 @@ class GuestCart extends React.Component {
     this.props.deleteFromCart(itemId)
   }
   //show order total
-  handleSubmit(orderTotal) {
-    this.props.newOrderCreated(orderTotal)
-    this.props.history.push('/checkout')
+  async handleSubmit() {
+    await this.props.history.push('/checkout')
   }
 
   render() {
     const cart = this.props.cart
     let total = 0
-    console.log('props from guestcart:', cart)
     return cart.length ? (
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
-          total += item.price
+          total += Number(item.price)
           return (
             <div key={idx} className="select">
               <img src={item.imageUrl} />
@@ -52,7 +49,7 @@ class GuestCart extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.handleSubmit(total)
+              this.handleSubmit()
             }}
             id="goToCheckout"
           >
@@ -72,8 +69,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchCart: () => dispatch(fetchCart()),
-  deleteFromCart: itemId => dispatch(deleteFromCart(itemId)),
-  newOrderCreated: total => dispatch(newOrderCreated(total))
+  deleteFromCart: itemId => dispatch(deleteFromCart(itemId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuestCart)

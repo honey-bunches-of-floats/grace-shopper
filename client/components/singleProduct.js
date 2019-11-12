@@ -30,7 +30,6 @@ class SingleProduct extends React.Component {
   // }
   handleSubmit = event => {
     event.preventDefault()
-    console.log('Button working!')
     this.props.addToCart(this.props.item.id)
   }
 

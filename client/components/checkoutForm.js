@@ -25,7 +25,7 @@ class Checkout extends React.Component {
   async handleSubmit(event) {
     event.preventDefault()
     try {
-      await this.props.newOrderCreated(this.state)
+      await this.props.newOrderCreated()
       this.props.history.push('/orderConfirmation')
     } catch (error) {
       console.log(error)

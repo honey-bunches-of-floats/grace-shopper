@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 
 class OrderConfirmation extends React.Component {
   render() {
+    console.log('user info', this.props.user)
+    console.log('checkout', this.props.checkout)
     return (
       <div>
         <h1>
@@ -20,7 +22,8 @@ class OrderConfirmation extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  checkout: state.cart.checkout
 })
 
 export default connect(mapStateToProps)(OrderConfirmation)

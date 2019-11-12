@@ -32,18 +32,6 @@ const buyOrder = id => ({
 })
 
 //THUNK
-//post to database and send browser 'history' to checkout url
-export const newOrderCreated = () => async dispatch => {
-  console.log('====================')
-  try {
-    const {data} = await axios.put(`/api/order/checkout`)
-    console.log('*******************')
-    dispatch(createOrder(data))
-    history.push(`/orderCheckout/${data.id}`)
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 //admin action?
 export const fetchAllOrders = () => async dispatch => {

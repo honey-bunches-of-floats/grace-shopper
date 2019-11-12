@@ -19,7 +19,6 @@ class AllProducts extends React.Component {
   }
 
   render() {
-    console.log('props from allProducts component:', this.props.products) //state isn't being mapped to props
     return (
       <div>
         <p>Hello from All Products Component!</p>
@@ -46,7 +45,6 @@ class AllProducts extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('from mapStateToProps:', state)
   return {
     products: state.products.allProducts
   }
