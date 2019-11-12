@@ -64,9 +64,9 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:itemId', async (req, res, next) => {
   try {
-    console.log('from inside delete cart:', req.data)
+    console.log('from inside delete cart:')
     if (req.user !== undefined) {
       const userCart = await Order.findOne({
         where: {
@@ -77,14 +77,14 @@ router.delete('/', async (req, res, next) => {
       await OrderDetails.destroy({
         where: {
           orderId: userCart.id,
-          productId: req.data,
+          productId: req.params.itemId,
           userId: req.user.id
         }
       })
       res.sendStatus(200)
     } else {
       req.session.cart = req.session.cart.filter(item => {
-        return item !== req.params.id
+        return item !== req.params.itemId
       })
 
       res.status(200).send(req.session.cart)

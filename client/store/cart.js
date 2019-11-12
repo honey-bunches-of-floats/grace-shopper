@@ -51,7 +51,7 @@ export const addingToCart = itemId => async dispatch => {
 // waiting for delete from order route to be written
 export const deleteFromCart = itemId => async dispatch => {
   try {
-    await axios.delete('/api/order', {data: itemId})
+    await axios.delete(`/api/order/${itemId}`)
     dispatch(deleteItemFromCart(itemId))
   } catch (error) {
     console.log(error)
