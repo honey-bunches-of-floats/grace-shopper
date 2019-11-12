@@ -10,7 +10,6 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const {red} = require('chalk')
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -111,7 +110,7 @@ const syncDb = () => db.sync()
 async function bootApp() {
   await sessionStore.sync()
   await syncDb().catch(err => {
-    console.error(red('Oh noes! Something went wrong!'))
+    console.error('Oh noes! Something went wrong!')
     console.error(err)
     db.close()
   })
