@@ -32,7 +32,6 @@ const deleteItemFromCart = productId => ({
 export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/order')
-    console.log('data.product from fetchCart', data)
     dispatch(getCart(data))
   } catch (error) {
     console.log(error)
