@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, deleteFromCart, newOrderCreated} from '../store/cart'
-class Cart extends React.Component {
+import {fetchCart, deleteFromCart} from '../store/cart'
+import {newOrderCreated} from '../store/order'
+class GuestCart extends React.Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
@@ -17,34 +18,33 @@ class Cart extends React.Component {
     this.props.deleteFromCart(itemId)
   }
   //show order total
-  async handleSubmit() {
-    await this.props.history.push('/checkout')
-    // this.props.newOrderCreated(order)
+  handleSubmit(orderTotal) {
+    this.props.newOrderCreated(orderTotal)
+    this.props.history.push('/checkout')
   }
-
-  // handleReset = () => {
-  //   const clearedQty = this.props.items.map(item => {
-  //     item.quantity = 0
-  //     return clearedQty
-  //   })
-  // }
+  handleReset = () => {
+    const clearedQty = this.props.items.map(item => {
+      item.quantity = 0
+      return clearedQty
+    })
+  }
   render() {
     const cart = this.props.cart
     let total = 0
-    console.log('props from cart:', this.props)
+    console.log('props from guestcart:', cart)
     return cart ? (
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
-          item.itemtotal += item.product.price * item.itemQuantity
+          total += item.price
           return (
             <div key={idx} className="select">
-              <img src={item.product.imageUrl} />
-              <li className="cart-item">{item.product.name} </li>
-              <div>Quantity: {item.itemQuantity}</div>
+              <img src={item.imageUrl} />
+              <li className="cart-item">{item.name} </li>
+              <div>Quantity:</div>
               <button
                 type="submit"
-                onClick={() => this.handleClick(item.product.id)}
+                onClick={() => this.handleClick(item.id)}
                 id="deleteFromCart"
               >
                 DELETE FROM CART
@@ -57,8 +57,8 @@ class Cart extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.handleSubmit(cart)
-              // this.handleReset()
+              this.handleSubmit(total)
+              this.handleReset()
             }}
             id="goToCheckout"
           >
@@ -67,7 +67,7 @@ class Cart extends React.Component {
         </div>
       </div>
     ) : (
-      <div>CART EMPTY</div>
+      <div>GUEST CART EMPTY</div>
     )
   }
 }
@@ -82,4 +82,4 @@ const mapDispatchToProps = dispatch => ({
   newOrderCreated: total => dispatch(newOrderCreated(total))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default connect(mapStateToProps, mapDispatchToProps)(GuestCart)

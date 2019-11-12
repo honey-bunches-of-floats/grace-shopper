@@ -1,5 +1,5 @@
 {
-  "name": "nyse",
+  "name": "ny-sock-exchange",
   "version": "2.0.0",
   "description": "grace_shoppper app",
   "engines": {
