@@ -22,12 +22,7 @@ class GuestCart extends React.Component {
     this.props.newOrderCreated(orderTotal)
     this.props.history.push('/checkout')
   }
-  handleReset = () => {
-    const clearedQty = this.props.items.map(item => {
-      item.quantity = 0
-      return clearedQty
-    })
-  }
+
   render() {
     const cart = this.props.cart
     let total = 0
@@ -58,7 +53,6 @@ class GuestCart extends React.Component {
             type="submit"
             onClick={() => {
               this.handleSubmit(total)
-              this.handleReset()
             }}
             id="goToCheckout"
           >
