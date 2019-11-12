@@ -24,7 +24,7 @@ class GuestCart extends React.Component {
   render() {
     const cart = this.props.cart
     let total = 0
-    return cart ? (
+    return cart.length ? (
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
@@ -33,7 +33,7 @@ class GuestCart extends React.Component {
             <div key={idx} className="select">
               <img src={item.imageUrl} />
               <li className="cart-item">{item.name} </li>
-              <div>Quantity:</div>
+              <div>Quantity: {item.quantity}</div>
               <button
                 type="submit"
                 onClick={() => this.handleClick(item.id)}

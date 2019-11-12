@@ -56,10 +56,12 @@ router.put('/', async (req, res, next) => {
 
       res.send(addedItem[0]).status(200)
     } else {
+      const itemToAdd = await Products.findByPk(req.body.itemId)
+
       if (!req.session.guestCart) {
         req.session.guestCart = []
       }
-      const itemToAdd = await Products.findByPk(req.body.itemId)
+
       req.session.guestCart.push(itemToAdd)
       res.send(req.session.guestCart)
     }
