@@ -5,14 +5,16 @@ import {Link} from 'react-router-dom'
 import {addingToCart} from '../store/cart'
 
 class AllProducts extends React.Component {
+  constructor() {
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
   componentDidMount() {
     this.props.fetchProductsThunk()
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    console.log('Button working!')
-    console.log('item', event.target.value)
     this.props.addToCart(event.target.value)
   }
 

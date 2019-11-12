@@ -7,7 +7,6 @@ module.exports = router
 
 //user route to their cart
 router.get('/', async (req, res, next) => {
-  console.log('got to the order GET')
   try {
     const userCart = await Order.findOne({
       where: {
@@ -22,7 +21,6 @@ router.get('/', async (req, res, next) => {
       },
       include: [{model: Products}]
     })
-    console.log('cart details from GET cart:', cartDetails)
     res.send(cartDetails)
   } catch (error) {
     next(error)
@@ -66,8 +64,9 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:itemId', async (req, res, next) => {
   try {
+    console.log('from inside delete cart:')
     if (req.user !== undefined) {
       const userCart = await Order.findOne({
         where: {
@@ -77,14 +76,15 @@ router.delete('/', async (req, res, next) => {
       })
       await OrderDetails.destroy({
         where: {
-          id: userCart.orderDetailId,
-          productId: req.body.itemId
+          orderId: userCart.id,
+          productId: req.params.itemId,
+          userId: req.user.id
         }
       })
       res.sendStatus(200)
     } else {
       req.session.cart = req.session.cart.filter(item => {
-        return item !== req.body.itemId
+        return item !== req.params.itemId
       })
 
       res.status(200).send(req.session.cart)

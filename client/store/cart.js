@@ -51,7 +51,7 @@ export const addingToCart = itemId => async dispatch => {
 // waiting for delete from order route to be written
 export const deleteFromCart = itemId => async dispatch => {
   try {
-    await axios.delete('/api/order', {itemId})
+    await axios.delete(`/api/order/${itemId}`)
     dispatch(deleteItemFromCart(itemId))
   } catch (error) {
     console.log(error)
@@ -69,16 +69,16 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return {...state, cart: [...state.cart, action.cart]}
+      return {...state, cart: action.cart}
 
     case CLEAR_CART:
       return {...state, checkout: state.cart, cart: []}
 
-    // case DELETE_FROM_CART:
-    //   return {
-    //     ...state,
-    //     cart: state.cart.filter(input => input.productId !== action.productId)
-    //   }
+    case DELETE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter(input => input.productId !== action.productId)
+      }
     default:
       return state
   }

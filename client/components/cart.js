@@ -12,6 +12,7 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart()
   }
+  component
   //delete lineItem...not the product
   handleClick(itemId) {
     this.props.deleteFromCart(itemId)
@@ -28,7 +29,7 @@ class Cart extends React.Component {
     })
   }
   render() {
-    const cart = this.props.cart[0]
+    const cart = this.props.cart
     let total = 0
     console.log('props from cart:', this.props)
     return cart ? (
@@ -72,7 +73,6 @@ class Cart extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log('cart from mapStateToProps in cart', state.cart.cart)
   return {cart: state.cart.cart}
 }
 
