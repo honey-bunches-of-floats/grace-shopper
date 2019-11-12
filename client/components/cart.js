@@ -25,7 +25,10 @@ class Cart extends React.Component {
   render() {
     const cart = this.props.cart
     let total = 0
-    return cart.length ? (
+    console.log('cart:', this.props.cart)
+    return !cart.length ? (
+      <div>CART EMPTY</div>
+    ) : (
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
@@ -58,8 +61,6 @@ class Cart extends React.Component {
           </button>
         </div>
       </div>
-    ) : (
-      <div>CART EMPTY</div>
     )
   }
 }

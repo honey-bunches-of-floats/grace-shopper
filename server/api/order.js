@@ -79,6 +79,17 @@ router.put('/checkout', async (req, res, next) => {
       })
       await openOrder.update({status: true})
       res.send(openOrder)
+    } else {
+      console.log('got into the else')
+      const newGuestOrder = await Order.create({status: true})
+      await req.session.guestCart.forEach(item =>
+        OrderDetails.create({
+          orderId: newGuestOrder.id,
+          productId: item.id
+        })
+      )
+      req.session.guestCart = []
+      res.send(req.session.guestCart)
     }
   } catch (err) {
     next(err)
