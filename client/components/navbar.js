@@ -9,24 +9,42 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Link to="/">
       <h1>NYSE</h1>
     </Link>
-    <nav>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <a className="navbar-brand" href="#">
+        NYSE
+      </a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/products">All Products</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <Link to="/cart">Cart</Link>
+            <Link to="/products">All Products</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
         </div>
       ) : (
-        <div>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/guestcart">Cart</Link>
-          <Link to="/products">All Products</Link>
+          <div className="navbar-nav">
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+            <Link to="/guestcart">Cart</Link>
+            <Link to="/products">All Products</Link>
+          </div>
         </div>
       )}
     </nav>
