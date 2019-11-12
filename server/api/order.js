@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
         status: false
       }
     })
-    const cartDetails = await OrderDetails.findOne({
+    const cartDetails = await OrderDetails.findAll({
       where: {
         orderId: userCart.id,
         userId: req.user.id
