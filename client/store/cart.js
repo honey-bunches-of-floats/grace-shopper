@@ -32,7 +32,7 @@ const deleteItemFromCart = productId => ({
 export const fetchCart = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/order')
-
+    console.log('data.product from fetchCart', data)
     dispatch(getCart(data))
   } catch (error) {
     console.log(error)
@@ -41,8 +41,8 @@ export const fetchCart = () => async dispatch => {
 
 export const addingToCart = itemId => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/order`, {itemId})
-    dispatch(getCart(data))
+    await axios.put(`/api/order`, {itemId})
+    dispatch(fetchCart())
   } catch (error) {
     console.log(error)
   }

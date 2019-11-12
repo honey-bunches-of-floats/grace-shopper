@@ -28,22 +28,22 @@ class Cart extends React.Component {
     })
   }
   render() {
-    const cart = this.props.cart
+    const cart = this.props.cart[0]
     let total = 0
-    return (
+    console.log('props from cart:', this.props)
+    return cart ? (
       <div>
         <h1>MY CART</h1>
-        {cart.map(item => {
-          total += item.price * item.quantity
-          console.log('product from map', item)
+        {cart.map((item, idx) => {
+          total += item.product.price * item.itemQuantity
           return (
-            <div key={item.id} className="select">
-              <img src={item.imageUrl} />
-              <li className="cart-item">{item.name} </li>
-              <div>Quantity: {item.quantity}</div>
+            <div key={idx} className="select">
+              <img src={item.product.imageUrl} />
+              <li className="cart-item">{item.product.name} </li>
+              <div>Quantity: {item.itemQuantity}</div>
               <button
                 type="submit"
-                onClick={() => this.handleClick(item.id)}
+                onClick={() => this.handleClick(item.product.id)}
                 id="deleteFromCart"
               >
                 DELETE FROM CART
@@ -65,13 +65,16 @@ class Cart extends React.Component {
           </button>
         </div>
       </div>
+    ) : (
+      <div>CART EMPTY</div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  cart: state.cart.cart
-})
+const mapStateToProps = state => {
+  console.log('cart from mapStateToProps in cart', state.cart.cart)
+  return {cart: state.cart.cart}
+}
 
 const mapDispatchToProps = dispatch => ({
   fetchCart: () => dispatch(fetchCart()),
