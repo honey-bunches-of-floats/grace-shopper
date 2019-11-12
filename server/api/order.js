@@ -8,20 +8,24 @@ module.exports = router
 //user route to their cart
 router.get('/', async (req, res, next) => {
   try {
-    const userCart = await Order.findOne({
-      where: {
-        userId: req.user.id,
-        status: false
-      }
-    })
-    const cartDetails = await OrderDetails.findAll({
-      where: {
-        orderId: userCart.id,
-        userId: req.user.id
-      },
-      include: [{model: Products}]
-    })
-    res.send(cartDetails)
+    if (req.user !== undefined) {
+      const userCart = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+      const cartDetails = await OrderDetails.findAll({
+        where: {
+          orderId: userCart.id,
+          userId: req.user.id
+        },
+        include: [{model: Products}]
+      })
+      res.send(cartDetails)
+    } else {
+      res.send(req.session.guestCart)
+    }
   } catch (error) {
     next(error)
   }

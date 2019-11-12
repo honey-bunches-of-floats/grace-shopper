@@ -36,7 +36,7 @@ class Cart extends React.Component {
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
-          total += item.product.price * item.itemQuantity
+          item.itemtotal += item.product.price * item.itemQuantity
           return (
             <div key={idx} className="select">
               <img src={item.product.imageUrl} />
