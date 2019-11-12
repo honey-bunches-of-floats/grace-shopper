@@ -25,7 +25,6 @@ class Cart extends React.Component {
   render() {
     const cart = this.props.cart
     let total = 0
-    console.log('cart:', this.props.cart)
     return !cart.length ? (
       <div>CART EMPTY</div>
     ) : (

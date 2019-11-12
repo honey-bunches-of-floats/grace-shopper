@@ -49,7 +49,6 @@ export const deleteFromCart = itemId => async dispatch => {
 export const newOrderCreated = () => async dispatch => {
   try {
     const {data} = await axios.put(`/api/order/checkout`)
-    console.log('from newOrdertCreated thunk after axios')
     dispatch(clearCart(data))
   } catch (error) {
     console.log(error)
