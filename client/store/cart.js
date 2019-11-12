@@ -2,8 +2,7 @@ import axios from 'axios'
 
 //ACTION TYPES
 const GET_CART_ITEMS = 'GET_CART_ITEMS'
-const ADD_TO_CART = 'ADD_TO_CART'
-const DELETE_FROM_CART = 'DELETE_FROM_CART'
+
 const CLEAR_CART = 'CLEAR_CART'
 //updating cart item quantity const UPDATE_CART = 'UPDATE_CART
 
@@ -13,19 +12,8 @@ const getCart = cart => ({
   cart
 })
 
-const addToCart = item => ({
-  type: ADD_TO_CART,
-  item
-})
-
 const clearCart = () => ({
   type: CLEAR_CART
-})
-
-//delete specific item from the cart
-const deleteItemFromCart = productId => ({
-  type: DELETE_FROM_CART,
-  productId
 })
 
 //THUNKS
@@ -51,17 +39,16 @@ export const addingToCart = itemId => async dispatch => {
 export const deleteFromCart = itemId => async dispatch => {
   try {
     await axios.delete(`/api/order/${itemId}`)
-    dispatch(deleteItemFromCart(itemId))
+    //dispatch(deleteItemFromCart(itemId))
+    dispatch(fetchCart())
   } catch (error) {
     console.log(error)
   }
 }
 
 export const newOrderCreated = () => async dispatch => {
-  console.log('====================')
   try {
     const {data} = await axios.put(`/api/order/checkout`)
-    console.log('*******************')
     dispatch(clearCart(data))
     //history.push(`/orderCheckout/${data.id}`)
   } catch (error) {
@@ -85,11 +72,6 @@ export default function(state = initialState, action) {
     case CLEAR_CART:
       return {...state, checkout: action.data, cart: []}
 
-    case DELETE_FROM_CART:
-      return {
-        ...state,
-        cart: state.cart.filter(input => input.productId !== action.productId)
-      }
     default:
       return state
   }

@@ -103,10 +103,11 @@ router.delete('/:itemId', async (req, res, next) => {
       })
       res.sendStatus(200)
     } else {
-      req.session.cart = req.session.cart.filter(item => {
-        return item !== req.params.itemId
+      const newGuestCart = req.session.guestCart.filter(item => {
+        return item.id !== Number(req.params.itemId)
       })
-      res.status(200).send(req.session.cart)
+      req.session.guestCart = newGuestCart
+      res.status(200).send(req.session.guestCart)
     }
   } catch (error) {
     next(error)

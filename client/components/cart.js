@@ -22,21 +22,14 @@ class Cart extends React.Component {
     // this.props.newOrderCreated(order)
   }
 
-  // handleReset = () => {
-  //   const clearedQty = this.props.items.map(item => {
-  //     item.quantity = 0
-  //     return clearedQty
-  //   })
-  // }
   render() {
     const cart = this.props.cart
     let total = 0
-    console.log('props from cart:', this.props)
-    return cart ? (
+    return cart.length ? (
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
-          item.itemtotal += item.product.price * item.itemQuantity
+          total += item.product.price * item.itemQuantity
           return (
             <div key={idx} className="select">
               <img src={item.product.imageUrl} />
@@ -58,7 +51,6 @@ class Cart extends React.Component {
             type="submit"
             onClick={() => {
               this.handleSubmit(cart)
-              // this.handleReset()
             }}
             id="goToCheckout"
           >
