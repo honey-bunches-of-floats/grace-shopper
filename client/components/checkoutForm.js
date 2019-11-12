@@ -1,5 +1,5 @@
 import React from 'react'
-import {newOrderCreated} from '../store/order'
+import {newOrderCreated} from '../store/cart'
 import {connect} from 'react-redux'
 
 class Checkout extends React.Component {
@@ -26,13 +26,7 @@ class Checkout extends React.Component {
     event.preventDefault()
     try {
       await this.props.newOrderCreated(this.state)
-      return (
-        <orderConfirmation
-          order={this.props.newOrder}
-          name={this.state.firstName}
-          email={this.state.email}
-        />
-      )
+      this.props.history.push('/orderConfirmation')
     } catch (error) {
       console.log(error)
     }
@@ -84,7 +78,8 @@ class Checkout extends React.Component {
             onChange={this.handleChange}
             value={shippingAddress}
           />
-          <button type="submit">Submit </button>
+          <hr />
+          <button type="submit">Submit</button>
         </div>
       </form>
     )
@@ -93,7 +88,7 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => ({
   orders: state.order,
-  newOrder: state.newOrder
+  newOrder: state.checkout
 })
 
 const mapDispatchToProps = dispatch => ({

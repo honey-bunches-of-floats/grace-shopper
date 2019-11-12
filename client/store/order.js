@@ -33,9 +33,11 @@ const buyOrder = id => ({
 
 //THUNK
 //post to database and send browser 'history' to checkout url
-export const newOrderCreated = subtotal => async dispatch => {
+export const newOrderCreated = () => async dispatch => {
+  console.log('====================')
   try {
-    const {data} = await axios.post(`/api/orders`, {price: subtotal})
+    const {data} = await axios.put(`/api/order/checkout`)
+    console.log('*******************')
     dispatch(createOrder(data))
     history.push(`/orderCheckout/${data.id}`)
   } catch (error) {
@@ -46,7 +48,7 @@ export const newOrderCreated = subtotal => async dispatch => {
 //admin action?
 export const fetchAllOrders = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/orders')
+    const {data} = await axios.get('/api/order')
     dispatch(getAllOrders(data))
   } catch (error) {
     console.error(error)
@@ -55,7 +57,7 @@ export const fetchAllOrders = () => async dispatch => {
 
 export const fetchOrder = id => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/orders/${id}`)
+    const {data} = await axios.get(`/api/order/${id}`)
     dispatch(getOrder(data))
   } catch (error) {
     console.error(error)
@@ -73,7 +75,6 @@ export const purchaseOrder = id => async dispatch => {
 }
 //initialState
 const initialState = {
-  newOrder: {},
   orders: [],
   order: {}
 }
@@ -81,8 +82,6 @@ const initialState = {
 //RETURNS
 export default function(state = initialState, action) {
   switch (action.type) {
-    case CREATE_ORDER:
-      return action.orderDetails
     case GET_ALL_ORDERS:
       return {...state, orders: action.orders}
     case GET_ORDER:

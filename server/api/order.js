@@ -68,6 +68,23 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+router.put('/checkout', async (req, res, next) => {
+  try {
+    if (req.user !== undefined) {
+      const openOrder = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+      await openOrder.update({status: true})
+      res.send(openOrder)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:itemId', async (req, res, next) => {
   try {
     if (req.user !== undefined) {
