@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
-const {Product} = require('../db/models')
 const Order = require('../db/models/orders')
+const OrderDetails = require('../db/models/orderDetails')
+const Products = require('../db/models/products')
 
 module.exports = router
 
@@ -9,14 +9,21 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   console.log('got to the order GET')
   try {
-    console.log('req.user: ', req.user)
     const userCart = await Order.findOne({
-      //should calling to order table
       where: {
-        userId: req.user.id
+        userId: req.user.id,
+        status: false
       }
     })
-    res.send(userCart)
+    const cartDetails = await OrderDetails.findOne({
+      where: {
+        orderId: userCart.id,
+        userId: req.user.id
+      },
+      include: [{model: Products}]
+    })
+    console.log('cart details from GET cart:', cartDetails)
+    res.send(cartDetails)
   } catch (error) {
     next(error)
   }
@@ -24,54 +31,65 @@ router.get('/', async (req, res, next) => {
 
 //user add to their cart
 router.put('/', async (req, res, next) => {
-  console.log('from inside of api/order router.put')
   try {
     if (req.user !== undefined) {
-      const addedItem = await Order.findOrCreate({
+      const openOrder = await Order.findOrCreate({
         where: {
-          userId: req.user.id
+          userId: req.user.id,
+          status: false
         }
       })
-      const currentInstance = addedItem[0]
-      currentInstance.products.push(req.body.item)
-      const updatedInstance = await currentInstance.update({
-        products: currentInstance.products
+      const foundOpenOrder = openOrder[0]
+      const addedItem = await OrderDetails.findOrCreate({
+        where: {
+          userId: req.user.id,
+          orderId: foundOpenOrder.id,
+          productId: req.body.itemId
+        }
       })
-      res.send(updatedInstance.products).status(200)
+      if (!addedItem[1]) {
+        addedItem[0].itemQuantity++
+        await addedItem[0].save()
+      }
+
+      res.send(addedItem[0]).status(200)
     } else {
       if (!req.session.guestCart) {
-        req.session.guestCart = [] //write cart directly onto guest session object
+        req.session.guestCart = []
       }
-      req.session.guestCart.push(req.body.item)
-      console.log('req.session from put cart:', req.session.guestCart)
+      req.session.guestCart.push(req.body.itemId)
+
       res.send(req.session.guestCart)
     }
-
-    //write cart directly onto guess session object
   } catch (error) {
     next(error)
   }
 })
 
-// router.delete('/', async (req, res, next) => {
-//   try {
-//     if (req.user.id !== 'undefined') {
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
-router.put('/deleteFromCart/', (req, res, next) => {
-  for (let i = 0; i < req.session.cart.length; i++) {
-    if (req.session.cart[i].id === req.body.productId) {
-      req.session.cart[i].quantity--
-    }
-    if (req.session.cart[i].quantity < 1) {
-      req.session.cart = req.session.cart.filter(item => {
-        return item.id !== req.session.cart[i].id
+router.delete('/', async (req, res, next) => {
+  try {
+    if (req.user !== undefined) {
+      const userCart = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
       })
+      await OrderDetails.destroy({
+        where: {
+          id: userCart.orderDetailId,
+          productId: req.body.itemId
+        }
+      })
+      res.sendStatus(200)
+    } else {
+      req.session.cart = req.session.cart.filter(item => {
+        return item !== req.body.itemId
+      })
+
+      res.status(200).send(req.session.cart)
     }
+  } catch (error) {
+    next(error)
   }
-  res.status(200).send(req.session.cart)
 })

@@ -39,20 +39,20 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const addingToCart = item => async dispatch => {
+export const addingToCart = itemId => async dispatch => {
   try {
-    const {data} = await axios.put(`/api/order`, {item})
-    dispatch(addToCart(data))
+    const {data} = await axios.put(`/api/order`, {itemId})
+    dispatch(getCart(data))
   } catch (error) {
     console.log(error)
   }
 }
 
 // waiting for delete from order route to be written
-export const deleteFromCart = productId => async dispatch => {
+export const deleteFromCart = itemId => async dispatch => {
   try {
-    await axios.delete(`/api/order/deleteFromCart/${productId}`)
-    dispatch(deleteItemFromCart(productId))
+    await axios.delete('/api/order', {itemId})
+    dispatch(deleteItemFromCart(itemId))
   } catch (error) {
     console.log(error)
   }
@@ -69,10 +69,8 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return {...state, cart: action.cart}
+      return {...state, cart: [...state.cart, action.cart]}
 
-    case ADD_TO_CART:
-      return {...state, cart: action.item}
     case CLEAR_CART:
       return {...state, checkout: state.cart, cart: []}
 
