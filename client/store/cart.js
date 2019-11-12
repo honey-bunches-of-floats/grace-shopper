@@ -42,7 +42,7 @@ export const fetchCart = () => async dispatch => {
 export const addingToCart = itemId => async dispatch => {
   try {
     const {data} = await axios.put(`/api/order`, {itemId})
-    dispatch(addToCart(data))
+    dispatch(getCart(data))
   } catch (error) {
     console.log(error)
   }
@@ -69,10 +69,8 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return {...state, cart: action.cart}
+      return {...state, cart: [...state.cart, action.cart]}
 
-    case ADD_TO_CART:
-      return {...state, cart: action.item}
     case CLEAR_CART:
       return {...state, checkout: state.cart, cart: []}
 
