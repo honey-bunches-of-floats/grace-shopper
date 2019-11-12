@@ -14,6 +14,9 @@ router.get('/', async (req, res, next) => {
         status: false
       }
     })
+    // if (!userCart.id) {
+    //   res.send('empty cart')
+    // }
     const cartDetails = await OrderDetails.findAll({
       where: {
         orderId: userCart.id,
@@ -61,6 +64,23 @@ router.put('/', async (req, res, next) => {
     }
   } catch (error) {
     next(error)
+  }
+})
+
+router.put('/checkout', async (req, res, next) => {
+  try {
+    if (req.user !== undefined) {
+      const openOrder = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          status: false
+        }
+      })
+      await openOrder.update({status: true})
+      res.send(openOrder)
+    }
+  } catch (err) {
+    next(err)
   }
 })
 

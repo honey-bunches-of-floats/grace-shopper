@@ -58,12 +58,24 @@ export const deleteFromCart = itemId => async dispatch => {
   }
 }
 
+export const newOrderCreated = () => async dispatch => {
+  console.log('====================')
+  try {
+    const {data} = await axios.put(`/api/order/checkout`)
+    console.log('*******************')
+    dispatch(clearCart(data))
+    //history.push(`/orderCheckout/${data.id}`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //REDUCER
 
 //INITIAL STATE
 const initialState = {
   cart: [],
-  checkout: []
+  checkout: {}
 }
 
 export default function(state = initialState, action) {
@@ -72,7 +84,7 @@ export default function(state = initialState, action) {
       return {...state, cart: action.cart}
 
     case CLEAR_CART:
-      return {...state, checkout: state.cart, cart: []}
+      return {...state, checkout: action.data, cart: []}
 
     case DELETE_FROM_CART:
       return {

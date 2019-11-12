@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, deleteFromCart} from '../store/cart'
-import {newOrderCreated} from '../store/order'
+import {fetchCart, deleteFromCart, newOrderCreated} from '../store/cart'
 class Cart extends React.Component {
   constructor() {
     super()
@@ -18,16 +17,17 @@ class Cart extends React.Component {
     this.props.deleteFromCart(itemId)
   }
   //show order total
-  handleSubmit(orderTotal) {
-    this.props.newOrderCreated(orderTotal)
-    this.props.history.push('/checkout')
+  async handleSubmit() {
+    await this.props.history.push('/checkout')
+    // this.props.newOrderCreated(order)
   }
-  handleReset = () => {
-    const clearedQty = this.props.items.map(item => {
-      item.quantity = 0
-      return clearedQty
-    })
-  }
+
+  // handleReset = () => {
+  //   const clearedQty = this.props.items.map(item => {
+  //     item.quantity = 0
+  //     return clearedQty
+  //   })
+  // }
   render() {
     const cart = this.props.cart
     let total = 0
@@ -57,8 +57,8 @@ class Cart extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.handleSubmit(total)
-              this.handleReset()
+              this.handleSubmit(cart)
+              // this.handleReset()
             }}
             id="goToCheckout"
           >
