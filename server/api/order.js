@@ -55,8 +55,8 @@ router.put('/', async (req, res, next) => {
       if (!req.session.guestCart) {
         req.session.guestCart = []
       }
-      req.session.guestCart.push(req.body.itemId)
-
+      const itemToAdd = await Products.findByPk(req.body.itemId)
+      req.session.guestCart.push(itemToAdd)
       res.send(req.session.guestCart)
     }
   } catch (error) {
