@@ -12,8 +12,9 @@ const getCart = cart => ({
   cart
 })
 
-const clearCart = () => ({
-  type: CLEAR_CART
+const clearCart = data => ({
+  type: CLEAR_CART,
+  data
 })
 
 //THUNKS

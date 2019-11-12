@@ -91,7 +91,7 @@ router.put('/checkout', async (req, res, next) => {
         })
       )
       req.session.guestCart = []
-      res.send(req.session.guestCart)
+      res.send(newGuestOrder)
     }
   } catch (err) {
     next(err)
