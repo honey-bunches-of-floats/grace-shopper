@@ -51,17 +51,16 @@ export const addingToCart = itemId => async dispatch => {
 export const deleteFromCart = itemId => async dispatch => {
   try {
     await axios.delete(`/api/order/${itemId}`)
-    dispatch(deleteItemFromCart(itemId))
+    //dispatch(deleteItemFromCart(itemId))
+    dispatch(fetchCart())
   } catch (error) {
     console.log(error)
   }
 }
 
 export const newOrderCreated = () => async dispatch => {
-  console.log('====================')
   try {
     const {data} = await axios.put(`/api/order/checkout`)
-    console.log('*******************')
     dispatch(clearCart(data))
     //history.push(`/orderCheckout/${data.id}`)
   } catch (error) {
