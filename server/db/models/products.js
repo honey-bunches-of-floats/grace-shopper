@@ -45,6 +45,10 @@ const Products = db.define('products', {
     },
     defaultValue:
       'https://c7.uihere.com/files/481/235/705/sock-stock-photography-christmas-stocking-illustration-socks-vector-material.jpg'
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 
