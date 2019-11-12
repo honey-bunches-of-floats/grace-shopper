@@ -1,7 +1,6 @@
 const db = require('./db')
 const Users = require('./server/db/models/user')
 const Products = require('./server/db/models/products')
-const {green} = require('chalk')
 
 const users = [
   {
@@ -73,7 +72,7 @@ const syncDb = async () => {
       return Products.create(product)
     })
   )
-  console.log(green('Seeding success!'))
+  console.log('Seeding success!')
   db.close()
 }
 
