@@ -26,8 +26,8 @@ class GuestCart extends React.Component {
     let total = 0
     return cart.length ? (
       <div>
-        <h1>MY CART</h1>
-        {cart.map((item, idx) => {
+        <h1>SHOPPING CART</h1>
+        {cart.map(item => {
           total += Number(item.price * item.quantity)
           return (
             <div key={item.id} className="select">

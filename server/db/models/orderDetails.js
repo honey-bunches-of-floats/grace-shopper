@@ -14,6 +14,4 @@ const OrderDetails = db.define('orderDetails', {
   }
 })
 
-//missing productId
-
 module.exports = OrderDetails
