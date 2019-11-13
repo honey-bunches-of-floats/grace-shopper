@@ -32,15 +32,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Link to="/home">
               <h6>Home</h6>
             </Link>
-            <Link to="/cart">
-              <h6>Cart</h6>
-            </Link>
             <Link to="/products">
               <h6>All Products</h6>
             </Link>
             <a href="#" onClick={handleClick}>
               <h6>Logout</h6>
             </a>
+            <Link to="/cart">
+              <h6>Cart</h6>
+            </Link>
           </div>
         </div>
       ) : (
@@ -53,11 +53,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             <Link to="/signup">
               <h6>Sign Up</h6>
             </Link>
-            <Link to="/guestcart">
-              <h6>Cart</h6>
-            </Link>
             <Link to="/products">
               <h6>All Products</h6>
+            </Link>
+            <Link to="/guestcart">
+              <h6>Cart</h6>
             </Link>
           </div>
         </div>
