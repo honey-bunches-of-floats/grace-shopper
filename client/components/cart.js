@@ -26,7 +26,17 @@ class Cart extends React.Component {
     const cart = this.props.cart
     let total = 0
     return !cart.length ? (
-      <div>CART EMPTY</div>
+      <div>
+        <h1>Your cart is empty</h1>
+        <a
+          href="/products"
+          className="btn btn-primary btn-lg active"
+          role="button"
+          aria-pressed="true"
+        >
+          Start Shopping
+        </a>
+      </div>
     ) : (
       <div>
         <h1>MY CART</h1>

@@ -30,7 +30,7 @@ class GuestCart extends React.Component {
         {cart.map((item, idx) => {
           total += Number(item.price * item.quantity)
           return (
-            <div key={idx} className="select">
+            <div key={item.id} className="select">
               <img src={item.imageUrl} />
               <li className="cart-item">{item.name} </li>
               <div>Quantity: {item.quantity}</div>
@@ -58,7 +58,17 @@ class GuestCart extends React.Component {
         </div>
       </div>
     ) : (
-      <div>GUEST CART EMPTY</div>
+      <div>
+        <h1>Your cart is empty</h1>
+        <a
+          href="/products"
+          className="btn btn-primary btn-lg active"
+          role="button"
+          aria-pressed="true"
+        >
+          Start Shopping
+        </a>
+      </div>
     )
   }
 }
