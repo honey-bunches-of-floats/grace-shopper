@@ -1,3 +1,13 @@
+## Welcome to the New York Sock Exchange (NYSE)
+
+NYSE is a Grace Shopper project brought to you by
+GH 1909 cohort students
+
+* Enya Baez-Ferreras
+* Natasha Gabuaeva
+* Tawana Howard
+* Pauline Kong
+
 ## Setup
 
 ## MACOS/Linux
