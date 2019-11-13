@@ -1,6 +1,7 @@
 import React from 'react'
 import {newOrderCreated} from '../store/cart'
 import {connect} from 'react-redux'
+import orderConfirmation from './orderConfirmation'
 
 class Checkout extends React.Component {
   constructor() {
