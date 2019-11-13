@@ -10,12 +10,10 @@ import {
   SingleProduct,
   Landing,
   Checkout,
-
+  OrderHistory,
   OrderConfirmation,
-
   Cart,
   GuestCart
-
 } from './components'
 import {me} from './store'
 
@@ -52,6 +50,7 @@ class Routes extends Component {
               path="/orderConfirmation"
               component={OrderConfirmation}
             />
+            <Route path="/orderHistory" component={OrderHistory} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

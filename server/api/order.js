@@ -31,6 +31,34 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/orderHistory', async (req, res, next) => {
+  try {
+    const allOrders = await Order.findAll({
+      where: {
+        userId: req.user.id,
+        status: true
+      }
+    })
+    // const allOrdersArr = [...allOrders]
+    // const allOrderDetails = allOrdersArr.map(async (order) => {
+    //   const orderDetails = await OrderDetails.findAll({
+    //     where: {
+    //       userId: req.user.id,
+    //       orderId: order.id
+    //     },
+    //     include: [{ model: Products }]
+    //   })
+    //   console.log('orderDetails from forEach', orderDetails)
+    //   return orderDetails
+    // })
+    // console.log('orderHistory from api route', allOrderDetails)
+    // res.send(allOrderDetails)
+    res.send(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //user add to their cart
 router.put('/', async (req, res, next) => {
   try {

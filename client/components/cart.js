@@ -11,7 +11,7 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.fetchCart()
   }
-  component
+
   //delete lineItem...not the product
   handleClick(itemId) {
     this.props.deleteFromCart(itemId)

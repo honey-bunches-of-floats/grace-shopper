@@ -1,25 +1,14 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios'
 import history from '../history'
-const CREATE_ORDER = 'POST_ORDER'
-const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 const BUY_ORDER = 'BUY_ORDER'
 const GET_ORDER = 'GET_ORDER'
+const GOT_ORDER_HISTORY = 'GOT_ORDER_HISTORY'
 
 //order details for checkout
-const createOrder = orderDetails => {
-  return {
-    type: CREATE_ORDER,
-    orderDetails
-  }
-}
 
 //action for admin
 //Tier 3
-const getAllOrders = orders => ({
-  type: GET_ALL_ORDERS,
-  orders
-})
 
 const getOrder = order => ({
   type: GET_ORDER,
@@ -31,17 +20,13 @@ const buyOrder = id => ({
   id
 })
 
+const gotOrderHistory = orders => ({
+  type: GOT_ORDER_HISTORY,
+  orders
+})
 //THUNK
 
 //admin action?
-export const fetchAllOrders = () => async dispatch => {
-  try {
-    const {data} = await axios.get('/api/order')
-    dispatch(getAllOrders(data))
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export const fetchOrder = id => async dispatch => {
   try {
@@ -61,17 +46,27 @@ export const purchaseOrder = id => async dispatch => {
     console.error(error)
   }
 }
+
+export const getOrderHistory = () => async dispatch => {
+  try {
+    const {data} = await axios.get('/api/order/orderHistory')
+    console.log('orderHistory data from thunk:', data)
+    dispatch(gotOrderHistory(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 //initialState
 const initialState = {
   orders: [],
-  order: {}
+  order: {},
+  orderHistory: []
 }
 
 //RETURNS
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_ORDERS:
-      return {...state, orders: action.orders}
     case GET_ORDER:
       return {...state, order: action.order}
     case BUY_ORDER:
@@ -86,7 +81,10 @@ export default function(state = initialState, action) {
         ...state,
         orders
       }
+    case GOT_ORDER_HISTORY:
+      return {...state, orderHistory: action.orders}
+
     default:
-      return initialState
+      return state
   }
 }
