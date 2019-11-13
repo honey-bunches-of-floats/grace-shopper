@@ -6,40 +6,112 @@ const {Products} = require('../server/db/models')
 
 const products = [
   {
-    name: 'zebra',
-    price: 5.0,
+    name: 'rubber duckie',
+    price: 18.0,
     color: 'multi',
+    theme: 'limited edition',
+    description: 'The perfect socks for debugging your code',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_ymzzmswkjxf0fxla.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
+  },
+  {
+    name: 'minecraft',
+    price: 18.0,
+    color: 'brown',
+    theme: 'limited edition',
+    description: 'Ready, set, Minecraft!',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_bpnruwbwtthmsshq.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
+  },
+  {
+    name: 'coffee',
+    price: 18.0,
+    color: 'blue',
+    theme: 'limited edition',
+    description: 'Coffee is always a great idea. Pour me another.',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_49c77caf-6945-40b0-bdbb-5da2d30111cfmagentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
+  },
+  {
+    name: 'likes',
+    price: 18.0,
+    color: 'multi',
+    theme: 'limited edition',
+    description: 'Thumbs us, gotcha, like it, get it, got it, good',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_efipowfjba4k4qqu.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+  },
+  {
+    name: 'zebras',
+    price: 12.0,
+    color: 'orange',
     theme: 'animals',
-    description: 'zebra socks',
+    description: 'In life, nothing is black and white, except the zebra',
     imageUrl:
       'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_71669ae6-1eb1-4cc4-bc44-f67dac27e802magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
   },
   {
-    name: 'elephant',
-    price: 7.0,
-    color: 'multi',
+    name: 'elephants',
+    price: 12.0,
+    color: 'black',
     theme: 'animals',
-    description: 'elephant socks',
+    description: "Let's talk about the elephants...on your feet.",
     imageUrl:
-      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_3a97012d-e305-400f-954f-2cb15c442ab8magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_5cbef593-cdb4-495d-b9a9-186423d81ba9magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
   },
   {
-    name: 'tulip',
-    price: 4.0,
-    color: 'multi',
-    theme: 'flowers',
-    description: 'tulip socks',
+    name: 'dogs',
+    price: 12.0,
+    color: 'black',
+    theme: 'animals',
+    description: 'These socks are Woofonderful! Dog lovers unite!',
     imageUrl:
-      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_b52e0c67-7c37-4e30-b489-f00561272d84magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+      'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_0rujncbo2jebknst.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+  },
+  {
+    name: 'cats',
+    price: 12.0,
+    color: 'yellow',
+    theme: 'animals',
+    description: "These socks are the cat's meow.",
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_uf8yqhmvkmgfnavh.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
   },
   {
     name: 'cereal',
-    price: 8.0,
+    price: 14.0,
     color: 'pink',
     theme: 'food',
-    description: 'cereal socks',
+    description: "Endless bowls of Fruity-O's. Yes, please!",
     imageUrl:
       'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_92.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+  },
+  {
+    name: 'pizza',
+    price: 14.0,
+    color: 'blue',
+    theme: 'food',
+    description: 'Serving up pizza socks with a side of pepperoni.',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_e18d7115-4ccc-4e15-8bcd-a7ae22c7e804magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700%3A700'
+  },
+  {
+    name: 'ice cream',
+    price: 14.0,
+    color: 'black',
+    theme: 'food',
+    description: 'I scream, you scream, we all scream for ice cream!',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_a6086cc5-8763-4b2e-99d0-2de0a5f07f80magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
+  },
+  {
+    name: 'burgers and fries',
+    price: 14.0,
+    color: 'blue',
+    theme: 'food',
+    description: 'Burgers and Fries..supersized.',
+    imageUrl:
+      'https://www.happysocks.com/media/catalog/product/h/t/httpsasset.productmarketingcloud.comapiassetstorage233_8dfd126d-e336-469e-bfe4-941f9a894c77magentoimage.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
   }
 ]
 
