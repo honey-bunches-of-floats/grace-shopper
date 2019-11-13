@@ -10,9 +10,8 @@ export {Login, Signup} from './auth-form'
 export {default as SingleProduct} from './singleProduct'
 export {default as Landing} from './landingPage'
 export {default as Checkout} from './checkoutForm'
-
+export {default as OrderHistory} from './orderHistory'
 export {default as OrderConfirmation} from './orderConfirmation'
 
 export {default as Cart} from './cart'
 export {default as GuestCart} from './guestCart'
-
