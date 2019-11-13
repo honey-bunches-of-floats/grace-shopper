@@ -6,13 +6,14 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <Link to="/">
-      <h1>NYSE</h1>
-    </Link>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        NYSE
-      </a>
+      <Link to="/">
+        <div>
+          <h1 className="navbar-brand" href="#">
+            NYSE
+          </h1>
+        </div>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -28,11 +29,17 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/products">All Products</Link>
+            <Link to="/home">
+              <h6>Home</h6>
+            </Link>
+            <Link to="/cart">
+              <h6>Cart</h6>
+            </Link>
+            <Link to="/products">
+              <h6>All Products</h6>
+            </Link>
             <a href="#" onClick={handleClick}>
-              Logout
+              <h6>Logout</h6>
             </a>
           </div>
         </div>
@@ -40,10 +47,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           {/* The navbar will show these links before you log in */}
           <div className="navbar-nav">
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-            <Link to="/guestcart">Cart</Link>
-            <Link to="/products">All Products</Link>
+            <Link to="/login">
+              <h6>Login</h6>
+            </Link>
+            <Link to="/signup">
+              <h6>Sign Up</h6>
+            </Link>
+            <Link to="/guestcart">
+              <h6>Cart</h6>
+            </Link>
+            <Link to="/products">
+              <h6>All Products</h6>
+            </Link>
           </div>
         </div>
       )}

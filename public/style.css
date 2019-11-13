@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.card-img-overlay {
+  color: rgba(255, 255, 255, 0.836);
+  text-align: center;
+}
