@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getOrderHistory} from '../store/order'
+import {Link} from 'react-router-dom'
 
 class OrderHistory extends React.Component {
   componentDidMount() {
@@ -16,9 +17,11 @@ class OrderHistory extends React.Component {
         <h1>Your Past Orders:</h1>
         {orders.map(order => {
           return (
-            <h4 key={order.id}>
-              Order # {order.id}. Placed on {order.updatedAt}
-            </h4>
+            <Link to={`/orderHistory/${order.id}`} key={order.id}>
+              <h4>
+                Order # {order.id}. Placed on {order.updatedAt}
+              </h4>
+            </Link>
           )
         })}
       </div>

@@ -11,6 +11,7 @@ import {
   Landing,
   Checkout,
   OrderHistory,
+  SingleOrderHistory,
   OrderConfirmation,
   Cart,
   GuestCart
@@ -50,7 +51,12 @@ class Routes extends Component {
               path="/orderConfirmation"
               component={OrderConfirmation}
             />
-            <Route path="/orderHistory" component={OrderHistory} />
+            <Route exact path="/orderHistory" component={OrderHistory} />
+            <Route
+              exact
+              path="/orderHistory/:orderId"
+              component={SingleOrderHistory}
+            />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
