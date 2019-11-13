@@ -28,7 +28,7 @@ class GuestCart extends React.Component {
       <div>
         <h1>MY CART</h1>
         {cart.map((item, idx) => {
-          total += Number(item.price)
+          total += Number(item.price * item.quantity)
           return (
             <div key={idx} className="select">
               <img src={item.imageUrl} />
