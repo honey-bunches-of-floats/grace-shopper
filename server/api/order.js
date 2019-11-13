@@ -60,12 +60,20 @@ router.put('/', async (req, res, next) => {
 
       if (!req.session.guestCart) {
         req.session.guestCart = []
-      } else {
-        const itemIndex = req.session.guestCart.findIndex(item => {
-          return item.id === req.body.itemId
-        })
-        console.log(itemIndex)
         req.session.guestCart.push(itemToAdd)
+      } else {
+        const itemIndex = cart => {
+          return cart.findIndex(item => item.id === Number(req.body.itemId))
+        }
+
+        const foundIndex = itemIndex(req.session.guestCart)
+
+        if (foundIndex < 0) {
+          req.session.guestCart.push(itemToAdd)
+        } else {
+          req.session.guestCart[foundIndex].quantity += 1
+        }
+
         res.send(req.session.guestCart)
       }
     }
