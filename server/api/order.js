@@ -73,9 +73,8 @@ router.put('/', async (req, res, next) => {
         } else {
           req.session.guestCart[foundIndex].quantity += 1
         }
-
-        res.send(req.session.guestCart)
       }
+      res.send(req.session.guestCart)
     }
   } catch (error) {
     next(error)

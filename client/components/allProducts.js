@@ -20,14 +20,18 @@ class AllProducts extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Hello from All Products Component!</p>
+      <div className="card-columns">
         {this.props.products.map(product => (
-          <div className="productCard" key={product.id}>
+          <div className="card" key={product.id}>
             <Link to={`/products/${product.id}`}>
-              <img className="productImage" src={product.imageUrl} />
-              <h3> {product.name}</h3>
-              <p>${product.price}</p>
+              <img className="card-img-top" src={product.imageUrl} />
+              <div className="card-body">
+                <h5 className="card-title"> {product.name}</h5>
+                <p className="card-text">{product.description}</p>
+                <p className="card-text">
+                  <small className="text-muted">${product.price}</small>
+                </p>
+              </div>
             </Link>
             <button
               onClick={this.handleSubmit}
