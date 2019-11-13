@@ -8,6 +8,8 @@ GH 1909 cohort students
 * Tawana Howard
 * Pauline Kong
 
+We sell socks!
+
 ## Setup
 
 ## MACOS/Linux
