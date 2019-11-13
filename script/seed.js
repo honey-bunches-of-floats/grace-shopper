@@ -37,7 +37,7 @@ const products = [
     price: 18.0,
     color: 'multi',
     theme: 'limited edition',
-    description: 'Thumbs us, gotcha, like it, get it, got it, good',
+    description: 'Thumbs up, gotcha, like it, get it, got it, good',
     imageUrl:
       'https://www.happysocks.com/media/catalog/product/m/a/magentoimage_efipowfjba4k4qqu.png?quality=80&fit=bounds&height=700&width=700&canvas=700:700'
   },

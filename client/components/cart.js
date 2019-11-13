@@ -19,21 +19,30 @@ class Cart extends React.Component {
   //show order total
   async handleSubmit() {
     await this.props.history.push('/checkout')
-    // this.props.newOrderCreated(order)
   }
 
   render() {
     const cart = this.props.cart
     let total = 0
     return !cart.length ? (
-      <div>CART EMPTY</div>
+      <div>
+        <h1>Your cart is empty</h1>
+        <a
+          href="/products"
+          className="btn btn-primary btn-lg active"
+          role="button"
+          aria-pressed="true"
+        >
+          Start Shopping
+        </a>
+      </div>
     ) : (
       <div>
-        <h1>MY CART</h1>
-        {cart.map((item, idx) => {
+        <h1>SHOPPING CART</h1>
+        {cart.map(item => {
           total += item.product.price * item.itemQuantity
           return (
-            <div key={idx} className="select">
+            <div key={item.id} className="select">
               <img src={item.product.imageUrl} />
               <li className="cart-item">{item.product.name} </li>
               <div>Quantity: {item.itemQuantity}</div>
